@@ -1,0 +1,18 @@
+name:           nalkuatov-kz
+version:        0.1.0.0
+github:         "nalkuatov/nalkuatov.kz"
+license:        BSD3
+author:         "Nurlan Alkuatov"
+maintainer:     "nalkuatov@gmail.com"
+copyright:      "2020 Nurlan Alkuatov"
+
+executables:
+  site:
+    main:             site.hs
+    source-dirs:      .
+    ghc-options:
+    - -threaded
+    dependencies:
+    - hakyll == 4.13.*
+    - base == 4.*
+
