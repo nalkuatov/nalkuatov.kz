@@ -1,0 +1,7 @@
+---
+title: О знакомстве с ФП
+author: Nurlan Alkuatov
+---
+
+About my first experience on FP
+
