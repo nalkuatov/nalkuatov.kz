@@ -1,0 +1,5 @@
+---
+title: О значке веб-ресурса или "фавиконке"
+---
+
+Here's something about my favicon
