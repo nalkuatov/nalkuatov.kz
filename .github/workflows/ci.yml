@@ -3,3 +3,17 @@ name: CI
 on:
   push:
     branches: [master]
+
+jobs:
+  stack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-haskell@v1.1.4
+        name: Setup Haskell Stack
+        with:
+          ghc-version: '8.8.4'
+          enable-stack: true
+          stack-version: 'latest'
+      - run: |
+          stack build --system-ghc --test --bench --no-run-tests --no-run-benchmarks
