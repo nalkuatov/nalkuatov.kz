@@ -1,4 +1,5 @@
-# nalkuatov.kz
+nalkuatov.kz
+---
 
 ![build](https://github.com/nalkuatov/nalkuatov.kz/workflows/CI/badge.svg)
 
