@@ -1,9 +1,9 @@
 name:           nalkuatov-kz
 version:        0.1.0.0
-github:         "nalkuatov/nalkuatov.kz"
+github:         "https://github.com/nalkuatov/nalkuatov.kz"
 license:        BSD3
 author:         "Nurlan Alkuatov"
-maintainer:     "nalkuatov@gmail.com"
+maintainer:     "alkuatovnurlan@gmail.com"
 copyright:      "2020 Nurlan Alkuatov"
 
 executables:
