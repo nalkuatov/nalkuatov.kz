@@ -13,7 +13,7 @@ title: About joyland.kz
 ----   tskldjfjkt
 ----   prodigious
 ----   ghfjorifjd   <------> ?how is it related to books' content?  
-----   tremenedou
+----   tremenedou   <------> ?how we can apply advanced haskell/type theory/complex maths here?
 ----   pslfjksdjf
 ----   lajfalsdjf
 
