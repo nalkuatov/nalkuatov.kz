@@ -1,12 +1,26 @@
 name:           nalkuatov-kz
 
 executables:
+  telegram-notifier:
+    main:             Server.hs
+    source-dirs:      notifier/src
+    default-extensions:
+      - DerivingStrategies
+      - OverloadedStrings
+      - RankNTypes
+      - FlexibleContexts
+    ghc-options:
+      - -threaded
+    dependencies:
+      - base == 4.*
+      - mtl
+      - text
+
   site:
     main:             site.hs
     source-dirs:      .
     ghc-options:
-    - -threaded
+      - -threaded
     dependencies:
-    - hakyll == 4.13.*
-    - base == 4.*
-
+      - hakyll == 4.13.*
+      - base == 4.*
