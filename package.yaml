@@ -9,12 +9,19 @@ executables:
       - OverloadedStrings
       - RankNTypes
       - FlexibleContexts
+      - DataKinds
+      - TypeOperators
     ghc-options:
       - -threaded
     dependencies:
       - base == 4.*
+      - aeson
       - mtl
       - text
+      - servant
+      - servant-server
+      - servant-client
+      - exceptions
 
   site:
     main:             site.hs
