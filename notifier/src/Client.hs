@@ -1,5 +1,6 @@
 module Client
   ( runClientM
+  , notify
   ) where
 
 
@@ -17,6 +18,9 @@ type Api = "api" :> "something" :> Get '[JSON] Text
 
 proxy :: Proxy Api
 proxy = Proxy
+
+notify :: ClientM Text
+notify = Servant.client proxy
 
 runClientM :: ClientM a -> NotifierM a
 runClientM action = do
