@@ -6,6 +6,7 @@ executables:
     source-dirs:      notifier/src
     default-extensions:
       - DerivingStrategies
+      - GeneralizedNewtypeDeriving
       - OverloadedStrings
       - RankNTypes
       - FlexibleContexts

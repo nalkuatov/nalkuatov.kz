@@ -1,5 +1,6 @@
 module Client
   ( runClientM
+  , liftClientM
   , notify
   ) where
 
@@ -14,13 +15,20 @@ import qualified Servant.Client as Servant
 
 import Notifier
 
-type Api = "api" :> "something" :> Get '[JSON] Text
+type Api
+  = "api"
+  :> "something"
+  :> Capture "text" Name
+  :> Get '[JSON] Text
 
 proxy :: Proxy Api
 proxy = Proxy
 
-notify :: ClientM Text
+notify :: Name -> ClientM Text
 notify = Servant.client proxy
+
+liftClientM :: ClientM a -> NotifierM a
+liftClientM = lift . lift
 
 runClientM :: ClientM a -> NotifierM a
 runClientM action = do
