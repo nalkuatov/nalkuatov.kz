@@ -12,6 +12,10 @@ executables:
       - FlexibleContexts
       - DataKinds
       - TypeOperators
+      - RecordWildCards
+      - ViewPatterns
+      - DeriveGeneric
+      - DeriveAnyClass
     ghc-options:
       - -threaded
     dependencies:
@@ -23,6 +27,11 @@ executables:
       - servant-server
       - servant-client
       - exceptions
+      - yaml
+      - directory
+      - http-client
+      - http-client-tls
+      - warp
 
   site:
     main:             site.hs

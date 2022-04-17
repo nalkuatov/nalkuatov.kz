@@ -9,6 +9,7 @@ import Control.Monad.IO.Class
 import Control.Monad.Catch
 import Control.Monad.Reader
 import Data.Text
+import Data.Aeson (Value)
 import Servant
 import Servant.Client (ClientM, ClientEnv)
 import qualified Servant.Client as Servant
@@ -16,15 +17,16 @@ import qualified Servant.Client as Servant
 import Notifier
 
 type Api
-  = "api"
-  :> "something"
-  :> Capture "text" Name
-  :> Get '[JSON] Text
+  = Capture "bot" Text
+  :> "sendMessage"
+  :> QueryParam' '[Required] "chat_id" Text
+  :> QueryParam' '[Required] "text"    Text
+  :> Get '[JSON] Value
 
 proxy :: Proxy Api
 proxy = Proxy
 
-notify :: Name -> ClientM Text
+notify :: Text -> Text -> Text -> ClientM Value
 notify = Servant.client proxy
 
 liftClientM :: ClientM a -> NotifierM a
