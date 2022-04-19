@@ -25,6 +25,8 @@ data Env = Env { appConfig :: AppConfig
                , clientEnv :: ClientEnv
                }
 
+-- | TODO: Implement a persistent state
+-- using 'stm'(?)
 data NState  =
   NState { posts :: [Name] -- ^ post names
          } deriving stock (Eq, Show)
