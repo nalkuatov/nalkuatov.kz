@@ -2,6 +2,7 @@ module Client
   ( runClientM
   , liftClientM
   , notify
+  , fetch
   ) where
 
 
@@ -23,11 +24,18 @@ type Api
   :> QueryParam' '[Required] "text"    Text
   :> Get '[JSON] Value
 
+  :<|> Capture "bot" Text
+  :> "getMessage"
+  :> QueryParam' '[Required] "chat_id" Text
+  :> Get '[JSON] Value
+
 proxy :: Proxy Api
 proxy = Proxy
 
 notify :: Text -> Text -> Text -> ClientM Value
-notify = Servant.client proxy
+fetch :: Text -> Text -> ClientM Value
+notify :<|> fetch = Servant.client proxy
+
 
 liftClientM :: ClientM a -> NotifierM a
 liftClientM = lift . lift
