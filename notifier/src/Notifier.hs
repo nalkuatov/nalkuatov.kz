@@ -12,6 +12,7 @@ import Control.Monad.State
 import Data.Text
 import Data.IORef
 import Data.Aeson
+import Data.Maybe
 import GHC.Generics
 
 data AppConfig
@@ -25,38 +26,48 @@ data Env = Env { appConfig :: AppConfig
                , clientEnv :: ClientEnv
                }
 
--- | TODO: Implement a persistent state
--- using 'stm'(?)
 data NState  =
-  NState { posts :: [Name] -- ^ post names
-         } deriving stock (Eq, Show)
+  NState { posts :: [Article] -- ^ post names
+         } deriving stock (Eq, Show, Generic)
+           deriving anyclass (FromJSON, ToJSON)
 
 -- | Represents the name of a post
-newtype Name = Name { unName :: Text }
-  deriving stock (Show, Eq)
-  deriving newtype (FromJSON, ToJSON, ToHttpApiData)
+data Article =
+  Article { filename :: FilePath -- ^ considered to be unique
+          , title :: Text
+          }
+  deriving stock (Show, Generic)
+  deriving anyclass (FromJSON, ToJSON)
+
+instance Eq Article where
+  (filename -> a) == (filename -> b) =
+    a == b
 
 -- | Would be nice to start using commands somehow
-data Action = DoNothing | Notify Name
+data Action = DoNothing | Notify Article
 
 type NotifierM = ReaderT Env (StateT NState ClientM)
 
 type f ~> g = forall a. f a -> g a
 
-add :: Name -> NState -> NState
+add :: Article -> NState -> NState
 add post = NState . (post :) . posts
 
-contains :: Name -> NState -> Bool
+contains :: Article -> NState -> Bool
 contains post = (post `elem`) . posts
 
 runNotifierM :: Env -> NState -> NotifierM a -> IO a
-runNotifierM env@Env{..} initState action = do
-  let req = evalStateT (runReaderT action env) initState
+runNotifierM env@Env{..} fallbackState action = do
+  currentState <-
+    decodeFileStrict "db.json" `catch` (\(e :: SomeException) -> pure Nothing)
+  let st  = fromMaybe fallbackState currentState
+  let req = runStateT (runReaderT action env) st
   res <- Servant.runClientM req clientEnv
   case res of
     Left e  -> throwM e
-    Right a -> pure a
+    Right (a, newState) ->
+      encodeFile "db.json" newState *> pure a
 
 notifierMToHandler :: Env -> NState -> NotifierM ~> Servant.Handler
-notifierMToHandler env initState =
-  Servant.Handler . ExceptT . try . runNotifierM env initState
+notifierMToHandler env fallbackState =
+  Servant.Handler . ExceptT . try . runNotifierM env fallbackState

@@ -3,3 +3,5 @@
 nalkuatov-kz.cabal
 _site
 _cache
+db.json
+config.yaml

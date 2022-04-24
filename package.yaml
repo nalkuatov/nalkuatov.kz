@@ -16,6 +16,7 @@ executables:
       - ViewPatterns
       - DeriveGeneric
       - DeriveAnyClass
+      - ScopedTypeVariables
     ghc-options:
       - -threaded
     dependencies:
