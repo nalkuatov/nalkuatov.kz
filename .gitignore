@@ -5,3 +5,4 @@ _site
 _cache
 db.json
 config.yaml
+telegram-notifier.cabal

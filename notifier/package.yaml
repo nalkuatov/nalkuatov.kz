@@ -1,0 +1,35 @@
+name: telegram-notifier
+
+executables:
+  telegram-notifier:
+    main:             Server.hs
+    source-dirs:      src
+    default-extensions:
+      - DerivingStrategies
+      - GeneralizedNewtypeDeriving
+      - OverloadedStrings
+      - RankNTypes
+      - FlexibleContexts
+      - DataKinds
+      - TypeOperators
+      - RecordWildCards
+      - ViewPatterns
+      - DeriveGeneric
+      - DeriveAnyClass
+      - ScopedTypeVariables
+    ghc-options:
+      - -threaded
+    dependencies:
+      - base == 4.*
+      - aeson
+      - mtl
+      - text
+      - servant
+      - servant-server
+      - servant-client
+      - exceptions
+      - yaml
+      - directory
+      - http-client
+      - http-client-tls
+      - warp
